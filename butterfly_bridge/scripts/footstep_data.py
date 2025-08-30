@@ -72,10 +72,14 @@ waveforms = np.array([audio[p * hop - 2024: p * hop + 8192] for p in peaks[0]], 
 # pg.image(waveforms.T)
 
 
-n_mfcc = 128
-mfccs = np.array([librosa.feature.mfcc(y=y, sr=sample_rate, n_mfcc=n_mfcc, hop_length=1024).T for y in waveforms])
+# n_mfcc = 128
+# mfccs = np.array([librosa.feature.mfcc(y=y, sr=sample_rate, n_mfcc=n_mfcc, hop_length=1024).T for y in waveforms])
+# features = mfccs.reshape(len(mfccs), -1)
 
-features = mfccs.reshape(len(mfccs), -1)
+n_fft = 128
+ffts = np.array([librosa.stft(y=y, n_fft=n_fft, hop_length=1024).T for y in waveforms])
+features = mfccs.reshape(len(ffts), -1)
+
 pg.image(features.T)
 
 plt.figure(2); plt.clf()

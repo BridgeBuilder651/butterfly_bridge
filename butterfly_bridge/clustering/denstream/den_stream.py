@@ -122,6 +122,7 @@ class DenStream:
 
             if r_p <= self.epsilon:
                 closest_p_cluster.update_parameters(cf1_score=cf1, weight=weight)
+                # print('found in p', closest_p_cluster.features_array.shape)
                 return closest_p_cluster, False
             else:
                 closest_p_cluster.pop()
@@ -139,7 +140,8 @@ class DenStream:
                 if closest_o_cluster.weight > self.beta * self.mu:
                     self.p_micro_clusters.append(closest_o_cluster)
                     self.o_micro_clusters.pop(closest_o_index)
-                    return closest_o_cluster, True
+                    # print('created p', closest_o_cluster.features_array.shape)
+                    return closest_o_cluster, False
             else:
                 # The clusters is not compact enough, therefore removing the newly added point.
                 closest_o_cluster.pop()
@@ -148,6 +150,7 @@ class DenStream:
         new_o_cluster.append(current_time, feature_array, label)
         new_o_cluster.update_parameters(time=current_time)
         self.o_micro_clusters.append(new_o_cluster)
+        # print('created o', new_o_cluster.features_array.shape)
         return new_o_cluster, True
 
     def _prune_p_clusters(self, time: int) -> None:

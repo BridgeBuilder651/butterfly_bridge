@@ -74,13 +74,13 @@ class MicroCluster:
         if len(self.features_array) == 0:
             pass
         else:
-            self.features_array = np.delete(self.features_array, [len(self.features_array) - 1], axis=0)
-            self.time_array = np.delete(self.time_array, [len(self.time_array) - 1], axis=0)
+            self.features_array = np.delete(self.features_array, -1, axis=0)
+            self.time_array = np.delete(self.time_array, -1, axis=0)
 
         if len(self.labels_array) == 0:
             pass
         else:
-            self.labels_array = np.delete(self.labels_array, [len(self.labels_array) - 1], axis=0)
+            self.labels_array = np.delete(self.labels_array, -1, axis=0)
 
     def _calculate_fading(self, time: int) -> FloatArrayType:
         """
@@ -122,7 +122,6 @@ class MicroCluster:
         :param kwargs:
         :return
         """
-
         if "time" in kwargs:
             fading_array = utils.fading_function(self.lambd, kwargs["time"] - self.time_array)
             weight = np.sum(fading_array, axis=0)
