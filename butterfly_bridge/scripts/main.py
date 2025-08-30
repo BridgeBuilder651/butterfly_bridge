@@ -23,11 +23,11 @@ sample_rate = 48000
 frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=n_fft)
 
 
-# def get_features():
-#     waveform = read_jxf('./data/waveform.jxf')[0]
-#     features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
-#     return features
-# feature_shape = get_features().shape
+def get_features():
+    waveform = read_jxf('./data/waveform.jxf')[0]
+    features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
+    return features.reshape(-1)
+
 
 waveform = np.random.rand(8192)
 features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
@@ -46,10 +46,10 @@ def message_handler(address, scope, *args):
     print(f"Received message on '{address}': {args}")
 
     client, clustering = scope
-    # features = get_features().reshape(-1)
+    features = get_features().reshape(-1)
 
-    waveform = np.array(args, dtype=float)
-    features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
+    # waveform = np.array(args, dtype=float)
+    # features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
 
     mean_features = clustering.append_transform(features, verbose=True)
     mean_features = np.sum(mean_features.reshape(feature_shape), axis=0)

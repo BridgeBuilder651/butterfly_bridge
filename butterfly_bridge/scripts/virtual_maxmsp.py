@@ -27,7 +27,7 @@ for i in range(1000):
     # generate face waveform data
     print(f'Sending waveform {i} to {ip=}, {port_send=} /butterfly')
     index = np.random.randint(0, len(waveforms))
-    waveform = waveforms[index]
+    waveform = waveforms[index][:8192]
     write_jxf('./data/waveform.jxf', waveform, plane_count=False)
     client.send_message('/butterfly', 1)
     server.handle_request()
