@@ -6,9 +6,9 @@ from sklearn import metrics
 from sklearn.cluster import DBSCAN
 
 from butterfly_bridge.clustering.denstream import DenStream
-from butterfly_bridge.visualization.plotting import plt, pg, pv, pvq
+#from butterfly_bridge.visualization.plotting import plt, pg, pv, pvq
 
-from butterfly_bridge.streaming.buffer import ArrayBuffer
+#from butterfly_bridge.streaming.buffer import ArrayBuffer
 
 class Clustering:
     def __init__(self,epsilon=200, lambd=0.00001, beta=0.6, mu=2, min_samples=1):
