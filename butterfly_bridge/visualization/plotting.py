@@ -2,7 +2,7 @@ def initialize_pycharm_gui():
     try:
         import IPython
         IPython.get_ipython().run_line_magic("gui", "qt")  # qt for interactive figures in pycharm
-    except ModuleNotFoundError:
+    except:
         pass
 
     try:
