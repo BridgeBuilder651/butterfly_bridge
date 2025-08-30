@@ -39,7 +39,7 @@ class Clustering:
         n = self.n_samples
 
 
-        cluster, is_outlier = ds.partial_fit(features[np.newaxis, :], time=self.n)
+        cluster, is_outlier = ds.partial_fit(features[np.newaxis, :], time=n)
         cluster_labels = ds.request_clustering()
 
         if verbose:
