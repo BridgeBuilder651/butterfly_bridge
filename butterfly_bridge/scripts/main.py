@@ -17,7 +17,7 @@ port_recv = 9123
 port_send = 8600
 client = SimpleUDPClient(ip, port_send)
 
-n_fft = 8 * 1024
+n_fft = 4 * 1024
 fft_hop = 2 * 1024
 sample_rate = 48000
 frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=n_fft)
@@ -44,8 +44,12 @@ def message_handler(address, scope, *args):
     print(f"Received message on '{address}': {args}")
 
     client, clustering = scope
+    # features = get_features().reshape(-1)
 
-    mean_features = clustering.append_transform(get_features().reshape(-1), verbose=True)
+    waveform = np.array(args, dtype=float)
+    features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
+
+    mean_features = clustering.append_transform(features, verbose=True)
     mean_features = np.sum(mean_features.reshape(feature_shape), axis=0)
     top_frequencies = frequencies[top_feature_indices(mean_features, n_top_features=10)[0]]
 
