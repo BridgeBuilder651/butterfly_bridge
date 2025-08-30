@@ -23,13 +23,15 @@ sample_rate = 48000
 frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=n_fft)
 
 
-def get_features():
-    waveform = read_jxf('./data/waveform.jxf')[0]
-    features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
-    return features
+# def get_features():
+#     waveform = read_jxf('./data/waveform.jxf')[0]
+#     features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
+#     return features
+# feature_shape = get_features().shape
 
-
-feature_shape = get_features().shape
+waveform = np.random.rand(8192)
+features = np.abs(librosa.stft(y=waveform, n_fft=n_fft, hop_length=fft_hop).T)
+feature_shape = features.shape
 
 clustering = Clustering(
     epsilon=1000000,
